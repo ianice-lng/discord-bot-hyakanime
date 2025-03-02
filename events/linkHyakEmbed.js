@@ -25,7 +25,7 @@ module.exports = {
                             url: "https://hyakanime.fr",
                         })
                         .setColor("#0099ff")
-                        .setTitle(response.title)
+                        .setTitle(response.title ? response.title : response.titleEN ? response.titleEN : response.romanji ? response.romanji : response.titleJP )
                         .setURL(`https://hyakanime.fr/anime/${response.id}`)
                         
                         .setTimestamp();
