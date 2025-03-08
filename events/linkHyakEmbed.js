@@ -11,12 +11,12 @@ module.exports = {
         const link = message.match(regex)[0];
         if(!link) return;
         let info = link.replace("https://", "").replace("http://", "").replace("www.", "").split("/");
-        console.log(info);
         if(info[0] === "hyakanime.fr"){
             if(info[1] === "anime"){
                 const result = await fetch(`${urlEndpoint}/anime/${info[2]}`);
                 const data = await result.text();
                 const response = JSON.parse(data);
+                console.log(response);
                     const embed = new EmbedBuilder()
                         .setAuthor({
                             name: "hyakanime",
@@ -30,7 +30,7 @@ module.exports = {
                         
                         .setTimestamp();
                         if(!response.adult){
-                            embed.setThumbnail(response.image).setDescription(response.synopsis.slice(0, 200) + "...")
+                            embed.setThumbnail(response.image).setDescription(response.synopsis === undefined ? "Pas de synopsis renseigné." : response.synopsis.slice(0, 200) + "...")
                         }else{
                             embed.setDescription("Ce contenu est réservé à un public averti.")
                         }
