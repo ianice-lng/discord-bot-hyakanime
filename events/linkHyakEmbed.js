@@ -16,7 +16,6 @@ module.exports = {
                 const result = await fetch(`${urlEndpoint}/anime/${info[2]}`);
                 const data = await result.text();
                 const response = JSON.parse(data);
-                console.log(response);
                     const embed = new EmbedBuilder()
                         .setAuthor({
                             name: "hyakanime",
@@ -27,7 +26,7 @@ module.exports = {
                         .setColor("#0099ff")
                         .setTitle(response.title ? response.title : response.titleEN ? response.titleEN : response.romanji ? response.romanji : response.titleJP )
                         .setURL(`https://hyakanime.fr/anime/${response.id}`)
-                        
+
                         .setTimestamp();
                         if(!response.adult){
                             embed.setThumbnail(response.image).setDescription(response.synopsis === undefined ? "Pas de synopsis renseigné." : response.synopsis.slice(0, 200) + "...")
@@ -37,7 +36,7 @@ module.exports = {
                     await msg.suppressEmbeds(true);
 
                     await msg.reply({embeds: [embed], allowedMentions: {repliedUser: false}});
-                
+
             }else if(info[1] === "user"){
                 let pseudo = info[2];
                 let responseUser = await fetch(urlEndpoint+"/user/" + pseudo);
@@ -123,4 +122,4 @@ module.exports = {
 function trouveLePlusProche(target, items, propName) {
     return items.sort((a, b) => a[propName].localeCompare(target, undefined, { sensitivity: 'base' }) - b[propName].localeCompare(target, undefined, { sensitivity: 'base' }))[0];
   }
-  
+
